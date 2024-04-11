@@ -144,7 +144,7 @@ class SocketConnectChat {
   late WebSocketChannel webSocketChannel;
   Connect() {
     webSocketChannel =
-        WebSocketChannel.connect(Uri.parse("ws://192.168.1.11:1212"));
+        WebSocketChannel.connect(Uri.parse("ws://202.182.127.220:1212"));
     this.webSocketChannel.stream.listen((dynamic message) {
       if (message == "received") {
         title = "loading";
