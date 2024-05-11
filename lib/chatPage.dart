@@ -117,16 +117,18 @@ class chatmessage extends StatelessWidget {
         ),
       );
     } else {
-      return Bubble(
-        margin: BubbleEdges.only(top: 10),
-        alignment: Alignment.topLeft,
-        nip: BubbleNip.leftBottom,
-        color: Color.fromRGBO(212, 234, 244, 1.0),
-        child: SizedBox(
-          width: 220,
-          child: Text(content,
-              textAlign: TextAlign.left,
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+      return SizedBox(
+        width: 300,
+        child: Bubble(
+          margin: BubbleEdges.only(top: 10),
+          alignment: Alignment.topLeft,
+          nip: BubbleNip.leftBottom,
+          color: Color.fromRGBO(212, 234, 244, 1.0),
+          child: Container(
+            child: Text(content,
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+          ),
         ),
       );
     }

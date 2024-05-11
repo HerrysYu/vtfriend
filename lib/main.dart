@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:vtfriend/chatPage.dart';
+import 'package:vtfriend/testpage.dart';
 import 'chatPage.dart';
 
 void main() {
@@ -12,7 +13,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(body: chatPage()),
+      home: Scaffold(body: testPage()),
     );
   }
 }
