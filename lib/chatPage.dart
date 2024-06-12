@@ -5,6 +5,8 @@ import 'package:bubble/bubble.dart';
 import 'package:chat_bubbles/message_bars/message_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:sqflite/utils/utils.dart';
 import 'package:vtfriend/MainPage.dart';
 import 'package:vtfriend/main.dart';
 import 'package:vtfriend/messagebubble.dart';
@@ -16,7 +18,7 @@ StreamController ChatPageStream = new StreamController.broadcast();
 List<chatmessageInfo> messageList = [];
 SocketConnectChat socketConnectChat = new SocketConnectChat();
 ScrollController scrollController = new ScrollController();
-String title = "AirNote";
+String title = "KeJour";
 
 class chatPage extends StatefulWidget {
   @override
@@ -28,11 +30,18 @@ class chatPageState extends State<chatPage> {
   void initState() {
     // TODO: implement initState
     socketConnectChat.Connect();
+    title = "Loading";
+    ChatPageStream.add("");
+    socketConnectChat.webSocketChannel.sink.add(
+        "Imagine you are a talking with me,as my friend. Please ask me some question about what's going on today and summarize what I say into a journal within 100 words. thank you");
     super.initState();
   }
 
   @override
-  void deactivate() {}
+  void deactivate() {
+    // TODO: implement deactivate
+    super.deactivate();
+  }
 
   @override
   @override
@@ -42,11 +51,18 @@ class chatPageState extends State<chatPage> {
         stream: ChatPageStream.stream,
         builder: (context, snapshot) {
           return Scaffold(
-              backgroundColor: Colors.white,
+              backgroundColor: HexColor("#232946"),
               appBar: AppBar(
+                titleTextStyle: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
                 backgroundColor: Colors.transparent,
                 leading: IconButton(
-                  icon: Icon(Icons.close),
+                  icon: Icon(
+                    Icons.close,
+                    color: Colors.white,
+                  ),
                   onPressed: () async {
                     messageList = [];
                     Navigator.pop(context);
@@ -62,30 +78,38 @@ class chatPageState extends State<chatPage> {
                     children: [
                       Padding(
                         padding:
-                            EdgeInsets.only(bottom: 100, left: 20, right: 20),
-                        child: ListView(children: [
-                          for (var obj in messageList.reversed)
-                            GestureDetector(
-                                onLongPress: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => editting(
-                                              content: obj.content,
-                                            )),
-                                  );
-                                  textEditingController.text = obj.content;
-                                },
-                                child: chatmessage(
-                                    isai: obj.isai, content: obj.content))
-                        ], controller: scrollController, reverse: true),
+                            EdgeInsets.only(bottom: 100, left: 0, right: 0),
+                        child: ListView(
+                            controller: scrollController,
+                            reverse: true,
+                            children: [
+                              for (var obj in messageList.reversed)
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: GestureDetector(
+                                      onLongPress: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => editting(
+                                                    content: obj.content,
+                                                  )),
+                                        );
+                                        textEditingController.text =
+                                            obj.content;
+                                      },
+                                      child: chatmessage(
+                                          isai: obj.isai,
+                                          content: obj.content)),
+                                )
+                            ]),
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Center(
                               child: Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
+                            padding: EdgeInsets.only(bottom: 30),
                             child: messagebar(
                               onsend: (message) {
                                 messageList.add(
@@ -167,13 +191,13 @@ class SocketConnectChat {
   late WebSocketChannel webSocketChannel;
   Connect() {
     webSocketChannel =
-        WebSocketChannel.connect(Uri.parse("ws://192.168.1.11:1211"));
+        WebSocketChannel.connect(Uri.parse("ws://149.28.30.44:1211"));
     this.webSocketChannel.stream.listen((dynamic message) {
       if (message == "received") {
         title = "loading";
         ChatPageStream.add("");
       } else {
-        title = "AirNote";
+        title = "KeJour";
         messageList.add(chatmessageInfo(isai: 1, content: message.toString()));
         ChatPageStream.add("");
       }

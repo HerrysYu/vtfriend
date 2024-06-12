@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -100,11 +101,7 @@ class sqlhelper {
 
   Future<int> getCount() async {
     //database connection
-    final db = await openDatabase(
-        join(await getDatabasesPath(), 'journals_database.db'),
-        version: 1);
-    var x = await db.rawQuery('SELECT COUNT (*) from journals');
-    int count = Sqflite.firstIntValue(x)! + 1;
-    return count;
+    List<journal> list = await journals();
+    return list.length;
   }
 }

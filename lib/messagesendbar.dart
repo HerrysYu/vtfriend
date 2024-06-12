@@ -3,6 +3,7 @@ import 'package:chat_bubbles/message_bars/message_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:vtfriend/chatPage.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -31,12 +32,12 @@ class messagebarState extends State<messagebar> {
                 child: TextField(
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   decoration: InputDecoration(
-                      hintText: "想说什么呢:",
+                      hintText: "Say Someting",
                       border: InputBorder.none,
                       hintStyle: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20,
-                      )),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: HexColor("#232946"))),
                   controller: widget.MessageBarController,
                 ),
               ),
@@ -48,7 +49,7 @@ class messagebarState extends State<messagebar> {
           ],
         ),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: HexColor("#b8c1ec"),
           borderRadius: BorderRadius.all(Radius.circular(50)),
           boxShadow: [
             BoxShadow(

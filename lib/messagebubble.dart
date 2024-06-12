@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:vtfriend/chatPage.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
 
@@ -16,7 +17,7 @@ class messagebubble extends StatelessWidget {
     // TODO: implement build
     if (isme == true) {
       return Padding(
-        padding: const EdgeInsets.only(right: 8, top: 12, bottom: 12),
+        padding: const EdgeInsets.only(right: 20, top: 12, bottom: 12),
         child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
           SizedBox(
             child: Container(
@@ -33,16 +34,16 @@ class messagebubble extends StatelessWidget {
                 ),
               )),
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 255, 255, 255),
+                  color: HexColor("#b8c1ec"),
+                  border: Border.all(color: HexColor("#b8c1ec")),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 6,
-                      offset: Offset(-1, 3),
+                      spreadRadius: 2,
+                      blurRadius: 22,
+                      offset: Offset(-1, 1),
                     )
                   ],
-                  border: Border.all(color: Colors.white),
                   borderRadius: BorderRadius.all(Radius.circular(20))),
             ),
           ),
@@ -54,7 +55,7 @@ class messagebubble extends StatelessWidget {
       );
     } else {
       return Padding(
-        padding: const EdgeInsets.only(left: 8, top: 12, bottom: 12),
+        padding: const EdgeInsets.only(left: 20, top: 12, bottom: 12),
         child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
           SizedBox(
             height: 50,
@@ -71,21 +72,24 @@ class messagebubble extends StatelessWidget {
                   child: Text(
                     softWrap: true,
                     message,
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: HexColor("#232946")),
                   ),
                 ),
               )),
               decoration: BoxDecoration(
-                  color: const Color.fromARGB(255, 255, 255, 255),
+                  color: HexColor("#eebbc3"),
                   boxShadow: [
                     BoxShadow(
                       color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 1,
-                      blurRadius: 6,
-                      offset: Offset(-1, 3),
+                      spreadRadius: 2,
+                      blurRadius: 22,
+                      offset: Offset(-1, 1),
                     )
                   ],
-                  border: Border.all(color: Colors.white),
+                  border: Border.all(color: HexColor("#eebbc3")),
                   borderRadius: BorderRadius.all(Radius.circular(20))),
             ),
           ),

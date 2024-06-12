@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
-import 'package:vtfriend/MainPage.dart';
-import 'package:vtfriend/chatPage.dart';
 import 'package:vtfriend/localdata.dart';
+import 'package:vtfriend/MainPage.dart';
 import 'package:vtfriend/main.dart';
 
-TextEditingController textEditingController = new TextEditingController();
+TextEditingController textEditingController_revisepage =
+    new TextEditingController();
 
-class editting extends StatelessWidget {
+class revising extends StatelessWidget {
   String content;
-  editting({
-    required this.content,
-  });
+  int day;
+  int month;
+  int year;
+  int id;
+  revising(
+      {required this.content,
+      required this.day,
+      required this.month,
+      required this.year,
+      required this.id});
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -26,17 +30,14 @@ class editting extends StatelessWidget {
             onPressed: () async {
               int count = await sql.getCount();
               final now = DateTime.now();
-              sql.InsertJournal(journal(
-                  content: textEditingController.text.toString(),
-                  day: now.day,
-                  year: now.year,
-                  month: now.month,
-                  id: count));
+              sql.updatejournals(journal(
+                  content: textEditingController_revisepage.text.toString(),
+                  day: day,
+                  year: year,
+                  month: month,
+                  id: id));
               currentJournal = await sql.journals();
-              mainpageupdateStream.add("");
-              messageList = [];
-              socketConnectChat.webSocketChannel.sink.close();
-              Navigator.pop(context);
+              mainpageupdateStream.sink.add("update");
               Navigator.pop(context);
             },
             icon: Icon(Icons.save),
@@ -49,7 +50,7 @@ class editting extends StatelessWidget {
         child: TextField(
             keyboardType: TextInputType.multiline,
             maxLines: null,
-            controller: textEditingController,
+            controller: textEditingController_revisepage,
             decoration: InputDecoration(
                 hintStyle: TextStyle(
                     fontSize: 35,
