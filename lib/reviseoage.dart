@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:vtfriend/localdata.dart';
 import 'package:vtfriend/MainPage.dart';
 import 'package:vtfriend/main.dart';
@@ -23,8 +24,15 @@ class revising extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: HexColor("#232946"),
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(Icons.exit_to_app),
+          color: HexColor("#eebbc3"),
+        ),
         actions: [
           IconButton(
             onPressed: () async {
@@ -41,9 +49,10 @@ class revising extends StatelessWidget {
               Navigator.pop(context);
             },
             icon: Icon(Icons.save),
+            color: HexColor("#eebbc3"),
           ),
         ],
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
       ),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
@@ -55,10 +64,13 @@ class revising extends StatelessWidget {
                 hintStyle: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                    color: Colors.white),
                 hintText: 'Write something',
                 border: InputBorder.none),
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.white)),
       ),
     );
     throw UnimplementedError();

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:vtfriend/MainPage.dart';
@@ -19,8 +20,9 @@ class editting extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: HexColor(),
       appBar: AppBar(
+        leading: IconButton(),
         actions: [
           IconButton(
             onPressed: () async {
@@ -40,6 +42,7 @@ class editting extends StatelessWidget {
               Navigator.pop(context);
             },
             icon: Icon(Icons.save),
+            color: HexColor(),
           ),
         ],
         backgroundColor: Colors.white,
@@ -54,10 +57,13 @@ class editting extends StatelessWidget {
                 hintStyle: TextStyle(
                     fontSize: 35,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                    color: Colors.white),
                 hintText: 'Write something',
                 border: InputBorder.none),
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: HexColor(hexColor))),
       ),
     );
     throw UnimplementedError();
