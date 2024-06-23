@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -26,6 +27,7 @@ import 'package:flutter_launcher_icons/web/web_icon_generator.dart';
 import 'package:flutter_launcher_icons/web/web_template.dart';
 import 'package:flutter_launcher_icons/windows/windows_icon_generator.dart';
 import 'package:flutter_launcher_icons/xml_templates.dart';
+import 'package:vtfriend/passwordPage.dart';
 
 class mainPage extends StatefulWidget {
   @override
@@ -39,10 +41,65 @@ journalupdate() async {
   currentJournal = await sql.journals();
 }
 
-class MainPageState extends State<mainPage> {
+bool autnecafrfq = false;
+bool ispush = false;
+
+class LifecycleEventHandler extends WidgetsBindingObserver {
+  final AsyncCallback resumeCallBack;
+  final AsyncCallback suspendingCallBack;
+
+  LifecycleEventHandler({
+    required this.resumeCallBack,
+    required this.suspendingCallBack,
+  });
+
   @override
-  void initState() {
-    // TODO: implement initState
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+    print('state >>>>>>>>>>>>>>>>>>>>>> : ${state}');
+    switch (state) {
+      case AppLifecycleState.resumed:
+        if (resumeCallBack != null) {
+          await resumeCallBack();
+        }
+        break;
+      case AppLifecycleState.inactive:
+      case AppLifecycleState.paused:
+      case AppLifecycleState.detached:
+        if (suspendingCallBack != null) {
+          await suspendingCallBack();
+        }
+        break;
+      case AppLifecycleState.hidden:
+      // TODO: Handle this case.
+    }
+  }
+}
+
+class MainPageState extends State<mainPage> with WidgetsBindingObserver {
+  bool isAppInactive = false; // if the app is Inactive do some thing
+
+  @override
+  initState() {
+    super.initState();
+
+    WidgetsBinding.instance
+        .addObserver(LifecycleEventHandler(resumeCallBack: () async {
+      // The app is now resumed, so let's change the value to false
+      setState(() {
+        isAppInactive = false;
+      });
+    }, suspendingCallBack: () async {
+      // The app is now inactive, so let's change the value to true
+      setState(() {
+        isAppInactive = true;
+      });
+    }));
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -51,23 +108,32 @@ class MainPageState extends State<mainPage> {
         backgroundColor: HexColor("#232946"),
         floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: FloatingActionButton(
-          shape: CircleBorder(),
-          elevation: 10,
-          foregroundColor: Colors.white,
-          onPressed: () {
+        floatingActionButton: GestureDetector(
+          onDoubleTap: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => chatPage(), fullscreenDialog: true),
+                  builder: (context) => passwordPage(), fullscreenDialog: true),
             );
           },
-          child: Icon(
-            Icons.add,
-            color: Colors.white,
+          child: FloatingActionButton(
+            shape: CircleBorder(),
+            elevation: 10,
+            foregroundColor: Colors.white,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => chatPage(), fullscreenDialog: true),
+              );
+            },
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
+            backgroundColor: HexColor("#eebbc3"),
+            heroTag: 'fab',
           ),
-          backgroundColor: HexColor("#eebbc3"),
-          heroTag: 'fab',
         ),
         body: FutureBuilder(
             future: journalupdate(),

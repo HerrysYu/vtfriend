@@ -20,33 +20,38 @@ class editting extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      backgroundColor: HexColor(),
+      backgroundColor: HexColor("#232946"),
       appBar: AppBar(
-        leading: IconButton(),
-        actions: [
-          IconButton(
-            onPressed: () async {
-              int count = await sql.getCount();
-              final now = DateTime.now();
-              sql.InsertJournal(journal(
-                  content: textEditingController.text.toString(),
-                  day: now.day,
-                  year: now.year,
-                  month: now.month,
-                  id: count));
-              currentJournal = await sql.journals();
-              mainpageupdateStream.add("");
-              messageList = [];
-              socketConnectChat.webSocketChannel.sink.close();
-              Navigator.pop(context);
+          leading: IconButton(
+            onPressed: () {
               Navigator.pop(context);
             },
-            icon: Icon(Icons.save),
-            color: HexColor(),
+            icon: Icon(Icons.last_page),
+            color: HexColor("#eebbc3"),
           ),
-        ],
-        backgroundColor: Colors.white,
-      ),
+          actions: [
+            IconButton(
+              onPressed: () async {
+                int count = await sql.getCount();
+                final now = DateTime.now();
+                sql.InsertJournal(journal(
+                    content: textEditingController.text.toString(),
+                    day: now.day,
+                    year: now.year,
+                    month: now.month,
+                    id: count));
+                currentJournal = await sql.journals();
+                mainpageupdateStream.add("");
+                messageList = [];
+                socketConnectChat.webSocketChannel.sink.close();
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+              icon: Icon(Icons.save),
+              color: HexColor("#eebbc3"),
+            ),
+          ],
+          backgroundColor: Colors.transparent),
       body: Padding(
         padding: const EdgeInsets.all(10.0),
         child: TextField(
@@ -63,7 +68,7 @@ class editting extends StatelessWidget {
             style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
-                color: HexColor(hexColor))),
+                color: Colors.white)),
       ),
     );
     throw UnimplementedError();

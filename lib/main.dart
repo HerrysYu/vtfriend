@@ -3,6 +3,7 @@ import 'package:vtfriend/MainPage.dart';
 import 'package:vtfriend/chatPage.dart';
 import 'package:vtfriend/localdata.dart';
 import 'package:vtfriend/localdata.dart';
+import 'package:vtfriend/passwordPage.dart';
 import 'package:vtfriend/testpage.dart';
 import 'chatPage.dart';
 
