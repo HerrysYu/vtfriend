@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:vtfriend/MainPage.dart';
 import 'package:vtfriend/chatPage.dart';
@@ -13,6 +15,12 @@ void main() {
 
 final sqlhelper sql = new sqlhelper();
 
+StreamController lockStream = new StreamController();
+
+List LockPage = [mainPage(), passwordPage()];
+
+int index = 0;
+
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
@@ -20,7 +28,12 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     journalupdate();
     return MaterialApp(
-      home: Scaffold(body: mainPage()),
+      home: Scaffold(
+          body: StreamBuilder(
+              stream: lockStream.stream,
+              builder: (context, snapshot) {
+                return LockPage[index];
+              })),
     );
   }
 }

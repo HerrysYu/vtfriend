@@ -9,7 +9,7 @@ import 'package:vtfriend/reviseoage.dart';
 class entrybar extends StatelessWidget {
   String journal;
   int month;
-  int id;
+  String id;
   int day;
   int year;
   entrybar(

@@ -8,7 +8,7 @@ class journal {
   int day;
   int month;
   int year;
-  int id;
+  String id;
   journal(
       {required this.content,
       required this.day,
@@ -41,7 +41,7 @@ class sqlhelper {
       onCreate: (db, version) {
         // Run the CREATE TABLE statement on the database.
         return db.execute(
-          'CREATE TABLE journals(id INTEGER PRIMARY KEY, day INTEGER, month INTEGER, content TEXT, year INTEGER)',
+          'CREATE TABLE journals(id TEXT PRIMARY KEY, day INTEGER, month INTEGER, content TEXT, year INTEGER)',
         );
       },
       // Set the version. This executes the onCreate function and provides a
@@ -61,7 +61,7 @@ class sqlhelper {
       onCreate: (db, version) {
         // Run the CREATE TABLE statement on the database.
         return db.execute(
-          'CREATE TABLE journals(id INTEGER PRIMARY KEY, day INTEGER, month INTEGER, content TEXT, year INTEGER)',
+          'CREATE TABLE journals(id TEXT PRIMARY KEY, day INTEGER, month INTEGER, content TEXT, year INTEGER)',
         );
       },
       // Set the version. This executes the onCreate function and provides a
@@ -74,7 +74,7 @@ class sqlhelper {
     // Convert the list of each dog's fields into a list of `Dog` objects.
     return [
       for (final {
-            'id': id as int,
+            'id': id as String,
             'year': year as int,
             'day': day as int,
             'month': month as int,
@@ -92,16 +92,32 @@ class sqlhelper {
         where: 'id=?', whereArgs: [journal.id]);
   }
 
-  Future<void> deletejournal(int id) async {
+  Future<void> deletejournal(String id) async {
     final db = await openDatabase(
         join(await getDatabasesPath(), 'journals_database.db'),
         version: 1);
     db.delete('journals', where: 'id=?', whereArgs: [id]);
   }
 
-  Future<int> getCount() async {
+  Future<String> Gid() async {
     //database connection
-    List<journal> list = await journals();
-    return list.length;
+    DateTime utc = DateTime.now().toUtc();
+    String a = utc.year.toString() +
+        "y" +
+        utc.month.toString() +
+        "m" +
+        utc.day.toString() +
+        "d" +
+        utc.hour.toString() +
+        "h" +
+        utc.minute.toString() +
+        "m" +
+        utc.second.toString() +
+        "s" +
+        utc.millisecond.toString() +
+        "millisecond" +
+        utc.microsecond.toString() +
+        "microsecond";
+    return a.toString();
   }
 }

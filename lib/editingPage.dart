@@ -32,7 +32,7 @@ class editting extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () async {
-                int count = await sql.getCount();
+                String count = await sql.Gid();
                 final now = DateTime.now();
                 sql.InsertJournal(journal(
                     content: textEditingController.text.toString(),

@@ -28,6 +28,7 @@ import 'package:flutter_launcher_icons/web/web_template.dart';
 import 'package:flutter_launcher_icons/windows/windows_icon_generator.dart';
 import 'package:flutter_launcher_icons/xml_templates.dart';
 import 'package:vtfriend/passwordPage.dart';
+import 'main.dart';
 
 class mainPage extends StatefulWidget {
   @override
@@ -42,58 +43,72 @@ journalupdate() async {
 }
 
 bool autnecafrfq = false;
-bool ispush = false;
+bool HavePush = false;
 
 class LifecycleEventHandler extends WidgetsBindingObserver {
   final AsyncCallback resumeCallBack;
   final AsyncCallback suspendingCallBack;
-
-  LifecycleEventHandler({
-    required this.resumeCallBack,
-    required this.suspendingCallBack,
-  });
+  final AsyncCallback pauseCallBack;
+  LifecycleEventHandler(
+      {required this.resumeCallBack,
+      required this.suspendingCallBack,
+      required this.pauseCallBack});
 
   @override
   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
     print('state >>>>>>>>>>>>>>>>>>>>>> : ${state}');
-    switch (state) {
-      case AppLifecycleState.resumed:
-        if (resumeCallBack != null) {
-          await resumeCallBack();
-        }
-        break;
-      case AppLifecycleState.inactive:
-      case AppLifecycleState.paused:
-      case AppLifecycleState.detached:
-        if (suspendingCallBack != null) {
-          await suspendingCallBack();
-        }
-        break;
-      case AppLifecycleState.hidden:
-      // TODO: Handle this case.
+    if (state == AppLifecycleState.resumed) {
+    } else {
+      index = 1;
+      lockStream.sink.add("");
     }
+    // switch (state) {
+    //   case AppLifecycleState.resumed:
+    //     break;
+    //   case AppLifecycleState.hidden:
+    //     if (pauseCallBack != null) {}
+    //     await pauseCallBack();
+    //     break;
+    //   case AppLifecycleState.inactive:
+    //     await pauseCallBack();
+    //     break;
+    //   case AppLifecycleState.detached:
+    //     if (suspendingCallBack != null) {}
+    //     await pauseCallBack();
+    //     break;
+    //   case AppLifecycleState.paused:
+    //     await pauseCallBack();
+    //     break;
+    //   // TODO: Handle this case.
+    // }
   }
 }
 
 class MainPageState extends State<mainPage> with WidgetsBindingObserver {
   bool isAppInactive = false; // if the app is Inactive do some thing
-
+  bool ispush = false;
   @override
   initState() {
     super.initState();
 
-    WidgetsBinding.instance
-        .addObserver(LifecycleEventHandler(resumeCallBack: () async {
-      // The app is now resumed, so let's change the value to false
-      setState(() {
-        isAppInactive = false;
-      });
-    }, suspendingCallBack: () async {
-      // The app is now inactive, so let's change the value to true
-      setState(() {
-        isAppInactive = true;
-      });
-    }));
+    WidgetsBinding.instance.addObserver(LifecycleEventHandler(
+        resumeCallBack: () async {
+          // The app is now resumed, so let's change the value to false
+          setState(() {
+            isAppInactive = false;
+          });
+        },
+        suspendingCallBack: () async {},
+        pauseCallBack: () async {
+          if (HavePush == false) {
+            index = 1;
+            lockStream.sink.add("");
+          }
+          setState(() {
+            isAppInactive = true;
+            ispush = true;
+          });
+        }));
   }
 
   @override

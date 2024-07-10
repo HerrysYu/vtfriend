@@ -13,7 +13,7 @@ class revising extends StatelessWidget {
   int day;
   int month;
   int year;
-  int id;
+  String id;
   revising(
       {required this.content,
       required this.day,
@@ -36,7 +36,7 @@ class revising extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () async {
-              int count = await sql.getCount();
+              String count = await sql.Gid();
               final now = DateTime.now();
               sql.updatejournals(journal(
                   content: textEditingController_revisepage.text.toString(),
