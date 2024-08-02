@@ -6,6 +6,8 @@ import 'package:vtfriend/chatPage.dart';
 import 'package:vtfriend/localdata.dart';
 import 'package:vtfriend/localdata.dart';
 import 'package:vtfriend/passwordPage.dart';
+import 'package:vtfriend/share.dart';
+import 'package:vtfriend/shareCard.dart';
 import 'package:vtfriend/testpage.dart';
 import 'chatPage.dart';
 
@@ -29,11 +31,13 @@ class MainApp extends StatelessWidget {
     journalupdate();
     return MaterialApp(
       home: Scaffold(
-          body: StreamBuilder(
-              stream: lockStream.stream,
-              builder: (context, snapshot) {
-                return LockPage[index];
-              })),
+          // body: StreamBuilder(
+          //     stream: lockStream.stream,
+          //     builder: (context, snapshot) {
+          //       return LockPage[index];
+          //     })
+          body: shCard(),
+              ),
     );
   }
 }

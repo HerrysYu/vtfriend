@@ -164,7 +164,7 @@ class MainPageState extends State<mainPage> with WidgetsBindingObserver {
                               month: item.month,
                               day: item.day,
                               id: item.id,
-                              year: item.year)
+                              year:   item.year)
                       ],
                     );
                   });

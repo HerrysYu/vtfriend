@@ -7,15 +7,21 @@ environment:
   sdk: '>=3.3.1 <4.0.0'
 
 dependencies:
+  blur: ^4.0.0
   bubble: ^1.2.1
   chat_bubbles: ^1.6.0
   flutter:
     sdk: flutter
   flutter_launcher_icons: ^0.13.1
+  gal: ^2.3.0
   google_generative_ai: ^0.4.0
   hexcolor: ^3.0.1
+  image_gallery_saver: ^2.0.3
   local_auth: ^2.2.0
   path: ^1.9.0
+  permission_handler: ^11.3.1
+  screenshot: ^3.0.0
+  share_plus: ^9.0.0
   sqflite: ^2.3.3+1
   web_socket_channel: ^2.4.4
 
@@ -33,3 +39,5 @@ flutter_launcher_icons:
   min_sdk_android: 21 # android min sdk
 flutter:
   uses-material-design: true
+  assets: 
+    - assets/

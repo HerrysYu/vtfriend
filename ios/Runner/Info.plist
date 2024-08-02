@@ -2,12 +2,16 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need add only access to save medias</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to save medias</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
 	<string>KeJour</string>
 	<key>NSFaceIDUsageDescription</key>
-    <string>Why is my app authenticating using face id?</string>
+	<string>Why is my app authenticating using face id?</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -51,9 +55,14 @@
 	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
-   <key>NSAllowsArbitraryLoads</key><true/>
-   <key>NSFaceIDUsageDescription</key>
-   <string>Why is my app authenticating using face id?</string>
-</dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSFaceIDUsageDescription</key>
+		<string>Why is my app authenticating using face id?</string>
+		<key>NSPhotoLibraryAddUsageDescription</key>
+		<string>We need add only access to save medias</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>We need access to save medias</string>
+	</dict>
 </dict>
 </plist>
