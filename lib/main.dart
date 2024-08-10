@@ -31,12 +31,11 @@ class MainApp extends StatelessWidget {
     journalupdate();
     return MaterialApp(
       home: Scaffold(
-          // body: StreamBuilder(
-          //     stream: lockStream.stream,
-          //     builder: (context, snapshot) {
-          //       return LockPage[index];
-          //     })
-          body: mainPage(),
+          body: StreamBuilder(
+               stream: lockStream.stream,
+               builder: (context, snapshot) {
+                return LockPage[index];
+               })
               ),
     );
   }

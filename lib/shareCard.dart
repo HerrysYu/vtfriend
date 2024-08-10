@@ -1,8 +1,10 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:blur/blur.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:gal/gal.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
@@ -12,6 +14,8 @@ import 'package:vtfriend/editingPage.dart';
 import 'package:vtfriend/main.dart';
 
 class shCard extends StatefulWidget{
+final String journaltext;
+shCard({required this.journaltext});
 @override
 State<StatefulWidget> createState() => cardState();
 }
@@ -20,99 +24,119 @@ double blurval=0;
 FontWeight fontWeight=FontWeight.normal;
 class cardState extends State<shCard>{
   late Uint8List _imageFile;
-
   //Create an instance of ScreenshotController
   ScreenshotController screenshotController = ScreenshotController();
   int indexvalue=2;
   int slectedvalue=2;
-  double fontsize=10;
+  double fontsize=20;
   String assetaddress="assets/background0.jpg";
+  var duration=Duration(milliseconds: 1000);
+ var imageSaved = SnackBar(
+  content: Text('Image have been saved to your gallery'),
+);
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(actions: [IconButton(onPressed: (){}, icon: Icon(Icons.settings),)],backgroundColor: Colors.transparent,),
+      appBar: AppBar(leading:IconButton(icon: Icon(Icons.last_page,color: Colors.white,size: 30,),onPressed: (){
+        Navigator.pop(context);
+      },),actions: [IconButton(onPressed: ()async{
+        _imageFile = await screenshotController.captureFromWidget(journalcard( assetaddress: assetaddress, widget: widget, fontsize: fontsize));
+        ImageGallerySaver.saveImage(_imageFile);
+        ScaffoldMessenger.of(context).showSnackBar(imageSaved);
+      }, icon: Icon(Icons.save,size:25,color:Colors.white),)],backgroundColor: Colors.transparent,),
       backgroundColor: HexColor("#232946"),
       body: Column(
         children: [
           Center(
             child: Padding(
               padding: EdgeInsets.only(top: 0),
-              child: Screenshot(
-                controller: screenshotController,
-                child:Container(
-        decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20))),
-        child: Card(
-        child: SizedBox(
-          height: 600,
-          width: 400,
-          child: Container(
-            decoration: BoxDecoration(boxShadow: [BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 20,
-                      offset: Offset(-1, 1),
-                    )]),
-            child: Stack(
-              children: [Blur( blur: blurval,
-                blurColor: Colors.transparent,child: Container(child: Image.asset(assetaddress,fit: BoxFit.fill,height: 1000,width: 1000,))),
-                Padding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Center(child: Text("a way of exit or entrance : a road, path, channel, or course by which something passes. Special ships clear passages through the ice. nasal passages. b. : a corridor or lobby giving access to the different rooms or parts of a building or apartment",style: TextStyle(fontSize: fontsize.toDouble(),color: Colors.white,fontWeight: fontWeight),),),
-                )
-            ], ),
-          ),
-        ),
-      ),
-    ),
-              ),
+              child: Container(decoration:  BoxDecoration(boxShadow: [BoxShadow(
+          color: Colors.grey.withOpacity(0.5),
+          spreadRadius: 2,
+          blurRadius: 20,
+          offset: Offset(-1, 1),
+        )]), child: journalcard(assetaddress: assetaddress, widget: widget, fontsize: fontsize)),
             ),
           ),
-          <Widget>[Center(
-            child: Slider(value: val, min:0,max:20,onChanged: (newValue){
-              setState(() {
-                val=newValue;
-                blurval=val;      
-              });
-            }),
+          <Widget>[Padding(
+            padding: const EdgeInsets.all(30),
+            child: Center(
+              child: SizedBox(
+                width: 400,
+                child: Stack(
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(20)),boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 22,
+                      offset: Offset(-1, 1),
+                    )
+                  ]),
+                      clipBehavior:Clip.hardEdge,
+                      child: SliderTheme(
+                        data:SliderThemeData(trackHeight: 55,trackShape: RectangularSliderTrackShape(),thumbShape: SliderComponentShape.noThumb,overlayShape:SliderComponentShape.noOverlay,activeTrackColor:HexColor("#eebbc3"),inactiveTrackColor:HexColor("#f7d0d3")),
+                        child: Slider(value: val, min:0,max:20,onChanged: (newValue){
+                          setState(() {
+                            val=newValue;
+                            blurval=val;      
+                          });
+                        }),
+                      ),
+                    ),
+                    Center(
+                      child: Padding(
+                      padding: const EdgeInsets.only(left: 0,top: 12,bottom: 0),
+                      child: Text('Blur:${blurval.round()}',style: TextStyle(color: Colors.white,fontSize: 20,fontWeight: FontWeight.bold),),
+                                        ),
+                    )
+                  ],
+                ),
+              ),
+            ),
           ),Center(
-            child: SizedBox(
-              height: 100,
-              width: 500,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: [
-                  Padding(padding: EdgeInsets.only(top: 8,bottom:8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
-                    setState(() {
-                      assetaddress="assets/background0.jpg";
-                    });
-                  }, child: Image.asset('assets/background0.jpg')),),),
-                  Padding(padding: EdgeInsets.only(top: 8,bottom:8,left:1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
-                    setState(() {
-                      assetaddress="assets/background1.jpg";
-                    });
-                  }, child: Image.asset('assets/background1.jpg')),),),
-                  Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
-                    setState(() {
-                      assetaddress="assets/background2.jpg";
-                    });
-                  }, child: Image.asset('assets/background2.jpg')),),),
-                  Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
-                    setState(() {
-                      assetaddress="assets/background3.jpg";
-                    });
-                  }, child: Image.asset('assets/background3.jpg')),),),
-                  Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
-                    setState(() {
-                      assetaddress="assets/background4.jpg";
-                    });
-                  }, child: Image.asset('assets/background4.jpg')),),),
-                  Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap:(){
-                    setState(() {
-                      assetaddress="assets/background5.jpg";
-                    });
-                  }, child: Image.asset('assets/background5.jpg')),),),
-                ],
+            child: Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: SizedBox(
+                height: 100,
+                width: 500,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Padding(padding: EdgeInsets.only(top: 8,bottom:8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
+                      setState(() {
+                        assetaddress="assets/background0.jpg";
+                      });
+                    }, child: Image.asset('assets/background0.jpg',)),),),
+                    Padding(padding: EdgeInsets.only(top: 8,bottom:8,left:1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
+                      setState(() {
+                        assetaddress="assets/background1.jpg";
+                      });
+                    }, child: Image.asset('assets/background1.jpg')),),),
+                    Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
+                      setState(() {
+                        assetaddress="assets/background2.jpg";
+                      });
+                    }, child: Image.asset('assets/background2.jpg')),),),
+                    Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
+                      setState(() {
+                        assetaddress="assets/background3.jpg";
+                      });
+                    }, child: Image.asset('assets/background3.jpg')),),),
+                    Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
+                      setState(() {
+                        assetaddress="assets/background4.jpg";
+                      });
+                    }, child: Image.asset('assets/background4.jpg')),),),
+                    Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap:(){
+                      setState(() {
+                        assetaddress="assets/background5.jpg";
+                      });
+                    }, child: Image.asset('assets/background5.jpg')),),),
+                  ],
+                ),
               ),
             ),
           ),Center(
@@ -209,6 +233,41 @@ class cardState extends State<shCard>{
       ),
     );
     
+  }
+}
+
+class journalcard extends StatefulWidget {
+  const journalcard({
+    required this.assetaddress,
+    required this.widget,
+    required this.fontsize,
+  });
+
+  final String assetaddress;
+  final shCard widget;
+  final double fontsize;
+
+  @override
+  State<journalcard> createState() => _journalcardState();
+}
+
+class _journalcardState extends State<journalcard> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+          child: SizedBox(
+            height: 600,
+            width: 400,
+            child: Stack(
+                    children: [Blur( blur: blurval,
+                blurColor: Colors.transparent,child: Container(child: Image.asset(widget.assetaddress,fit: BoxFit.fill,height: 1000,width: 1000,))),
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Center(child: Text(widget.widget.journaltext,style: TextStyle(fontSize: widget.fontsize.toDouble(),color: Colors.white,fontWeight: fontWeight),),),
+                )
+            ], ),
+          ),
+      );
   }
 }
 

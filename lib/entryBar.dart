@@ -5,6 +5,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:vtfriend/MainPage.dart';
 import 'package:vtfriend/main.dart';
 import 'package:vtfriend/reviseoage.dart';
+import 'package:vtfriend/shareCard.dart';
 
 class entrybar extends StatelessWidget {
   String journal;
@@ -42,6 +43,13 @@ class entrybar extends StatelessWidget {
                         year: year,
                         id: id)));
             textEditingController_revisepage.text = journal;
+          },
+          onHorizontalDragStart: (details) {
+             Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => shCard(
+                       journaltext: journal,)));
           },
           child: Container(
             child: Padding(

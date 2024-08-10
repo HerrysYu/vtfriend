@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:path/path.dart';
 import 'package:vtfriend/chatPage.dart';
 import 'package:vtfriend/entryBar.dart';
 import 'package:vtfriend/localdata.dart';
@@ -49,10 +50,13 @@ class LifecycleEventHandler extends WidgetsBindingObserver {
   final AsyncCallback resumeCallBack;
   final AsyncCallback suspendingCallBack;
   final AsyncCallback pauseCallBack;
+    final AsyncCallback inactiveCallBack;
+
   LifecycleEventHandler(
       {required this.resumeCallBack,
       required this.suspendingCallBack,
-      required this.pauseCallBack});
+      required this.pauseCallBack,
+         required this.inactiveCallBack});
 
   @override
   Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
@@ -98,7 +102,16 @@ class MainPageState extends State<mainPage> with WidgetsBindingObserver {
             isAppInactive = false;
           });
         },
-        suspendingCallBack: () async {},
+        suspendingCallBack: () async {
+           if (HavePush == false) {
+            index = 1;
+            lockStream.sink.add("");
+          }
+          setState(() {
+            isAppInactive = true;
+            ispush = true;
+          });
+        },
         pauseCallBack: () async {
           if (HavePush == false) {
             index = 1;
@@ -108,7 +121,11 @@ class MainPageState extends State<mainPage> with WidgetsBindingObserver {
             isAppInactive = true;
             ispush = true;
           });
-        }));
+        },
+        inactiveCallBack: ()async{
+
+        }
+        ));
   }
 
   @override
