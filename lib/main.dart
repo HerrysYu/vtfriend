@@ -36,7 +36,7 @@ class MainApp extends StatelessWidget {
           //     builder: (context, snapshot) {
           //       return LockPage[index];
           //     })
-          body: shCard(),
+          body: mainPage(),
               ),
     );
   }

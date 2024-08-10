@@ -8,6 +8,7 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:vtfriend/editingPage.dart';
 import 'package:vtfriend/main.dart';
 
 class shCard extends StatefulWidget{
@@ -25,6 +26,7 @@ class cardState extends State<shCard>{
   int indexvalue=2;
   int slectedvalue=2;
   double fontsize=10;
+  String assetaddress="assets/background0.jpg";
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -53,7 +55,7 @@ class cardState extends State<shCard>{
                     )]),
             child: Stack(
               children: [Blur( blur: blurval,
-                blurColor: Colors.transparent,child: Container(child: Image.asset('assets/background.jpg',fit: BoxFit.fitHeight,height: 1000,width: 1000,))),
+                blurColor: Colors.transparent,child: Container(child: Image.asset(assetaddress,fit: BoxFit.fill,height: 1000,width: 1000,))),
                 Padding(
                   padding: const EdgeInsets.all(20.0),
                   child: Center(child: Text("a way of exit or entrance : a road, path, channel, or course by which something passes. Special ships clear passages through the ice. nasal passages. b. : a corridor or lobby giving access to the different rooms or parts of a building or apartment",style: TextStyle(fontSize: fontsize.toDouble(),color: Colors.white,fontWeight: fontWeight),),),
@@ -73,7 +75,47 @@ class cardState extends State<shCard>{
                 blurval=val;      
               });
             }),
-          ),Center(),Center(
+          ),Center(
+            child: SizedBox(
+              height: 100,
+              width: 500,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: [
+                  Padding(padding: EdgeInsets.only(top: 8,bottom:8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
+                    setState(() {
+                      assetaddress="assets/background0.jpg";
+                    });
+                  }, child: Image.asset('assets/background0.jpg')),),),
+                  Padding(padding: EdgeInsets.only(top: 8,bottom:8,left:1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
+                    setState(() {
+                      assetaddress="assets/background1.jpg";
+                    });
+                  }, child: Image.asset('assets/background1.jpg')),),),
+                  Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
+                    setState(() {
+                      assetaddress="assets/background2.jpg";
+                    });
+                  }, child: Image.asset('assets/background2.jpg')),),),
+                  Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
+                    setState(() {
+                      assetaddress="assets/background3.jpg";
+                    });
+                  }, child: Image.asset('assets/background3.jpg')),),),
+                  Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
+                    setState(() {
+                      assetaddress="assets/background4.jpg";
+                    });
+                  }, child: Image.asset('assets/background4.jpg')),),),
+                  Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap:(){
+                    setState(() {
+                      assetaddress="assets/background5.jpg";
+                    });
+                  }, child: Image.asset('assets/background5.jpg')),),),
+                ],
+              ),
+            ),
+          ),Center(
             child: Row(children: [
               Padding(
                 padding: const EdgeInsets.only(right: 10,top: 30),
