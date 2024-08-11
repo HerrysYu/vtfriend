@@ -196,8 +196,9 @@ class cardState extends State<shCard>{
                                  visualDensity: VisualDensity(horizontal: 0),
                                  backgroundColor: WidgetStateProperty.all(HexColor("#eebbc3"))),
                                  textStyle: TextStyle(fontWeight: FontWeight.bold),
-                                 requestFocusOnTap: true,
-                                 inputDecorationTheme: InputDecorationTheme(border: InputBorder.none,),),
+                                 requestFocusOnTap: false,
+                                 inputDecorationTheme: InputDecorationTheme(border: InputBorder.none,),
+                                 enableFilter: false,),
                 ),
               )
             ],
