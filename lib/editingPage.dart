@@ -20,7 +20,7 @@ class editting extends StatelessWidget {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      resizeToAvoidBottomInset:false,
+      resizeToAvoidBottomInset:true,
       backgroundColor: HexColor("#232946"),
       appBar: AppBar(
           leading: IconButton(

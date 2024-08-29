@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 import 'package:vtfriend/MainPage.dart';
 import 'package:vtfriend/chatPage.dart';
 import 'package:vtfriend/localdata.dart';
@@ -24,8 +25,6 @@ List LockPage = [mainPage(), passwordPage()];
 int index = 0;
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key});
-
   @override
   Widget build(BuildContext context) {
     journalupdate();

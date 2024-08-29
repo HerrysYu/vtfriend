@@ -24,7 +24,7 @@ async def echo(websocket):
     response = chat.send_message(message)
     await websocket.send(response.text)
 async def main():
-  async with websockets.serve(echo, "192.168.1.11", 1211):
+  async with websockets.serve(echo, "202.182.127.220", 1211):
     await asyncio.Future()  # run forever
 
 

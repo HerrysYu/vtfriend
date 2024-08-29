@@ -36,6 +36,8 @@ class cardState extends State<shCard>{
 );
   @override
   Widget build(BuildContext context) {
+    var height=MediaQuery.sizeOf(context).height;
+    var width=MediaQuery.sizeOf(context).width;
     // TODO: implement build
     return Scaffold(
       appBar: AppBar(leading:IconButton(icon: Icon(Icons.last_page,color: Colors.white,size: 30,),onPressed: (){
@@ -56,11 +58,11 @@ class cardState extends State<shCard>{
           spreadRadius: 2,
           blurRadius: 20,
           offset: Offset(-1, 1),
-        )]), child: journalcard(assetaddress: assetaddress, widget: widget, fontsize: fontsize)),
+        )]), child: AspectRatio(aspectRatio: 1/1.4,child:journalcard(assetaddress: assetaddress, widget: widget, fontsize: fontsize))),
             ),
           ),
           <Widget>[Padding(
-            padding: const EdgeInsets.all(30),
+            padding:  EdgeInsets.all(height/35),
             child: Center(
               child: SizedBox(
                 width: 400,
@@ -98,34 +100,34 @@ class cardState extends State<shCard>{
             ),
           ),Center(
             child: Padding(
-              padding: const EdgeInsets.only(top: 10),
+              padding: EdgeInsets.only(top: 10),
               child: SizedBox(
-                height: 100,
-                width: 500,
+                height: height/10,
+                width: width,
                 child: ListView(
                   scrollDirection: Axis.horizontal,
                   children: [
-                    Padding(padding: EdgeInsets.only(top: 8,bottom:8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
+                    Padding(padding: EdgeInsets.only(top: 8,bottom:8,left: 1,right: 1),child: SizedBox(height:height/10,width:height/10,child: GestureDetector(onTap: (){
                       setState(() {
                         assetaddress="assets/background0.jpg";
                       });
                     }, child: Image.asset('assets/background0.jpg',)),),),
-                    Padding(padding: EdgeInsets.only(top: 8,bottom:8,left:1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
+                    Padding(padding: EdgeInsets.only(top: 8,bottom:8,left:1,right: 1),child: SizedBox(height:height/10,width:height/10,child: GestureDetector(onTap: (){
                       setState(() {
                         assetaddress="assets/background1.jpg";
                       });
                     }, child: Image.asset('assets/background1.jpg')),),),
-                    Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
+                    Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:height/10,width:height/10,child: GestureDetector(onTap: (){
                       setState(() {
                         assetaddress="assets/background2.jpg";
                       });
                     }, child: Image.asset('assets/background2.jpg')),),),
-                    Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
+                    Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:height/10,width:height/10,child: GestureDetector(onTap: (){
                       setState(() {
                         assetaddress="assets/background3.jpg";
                       });
                     }, child: Image.asset('assets/background3.jpg')),),),
-                    Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:100,width:100,child: GestureDetector(onTap: (){
+                    Padding(padding: EdgeInsets.only(top: 8,bottom: 8,left: 1,right: 1),child: SizedBox(height:height/10,width:height/10,child: GestureDetector(onTap: (){
                       setState(() {
                         assetaddress="assets/background4.jpg";
                       });
